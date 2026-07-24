@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: collabai-marketplace
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PAYMENT_PROVIDER
+        value: demo
+      - key: DB_FILE
+        value: /var/data/collabai-db.json
+    disk:
+      name: collabai-data
+      mountPath: /var/data
+      sizeGB: 1
